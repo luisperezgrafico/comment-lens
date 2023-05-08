@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Insights</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    
+</head>
+<body>
+    <h1>Insights:</h1>
+    {{ insights|safe }}
+    <br>
+    <a href="{{ url_for('index') }}">Back to the form</a>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartGPT GUI</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            display: flex;
+            width: 80%;
+            height: 80%;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        textarea,
+        .output {
+            flex: 1;
+            padding: 1rem;
+            border: none;
+            resize: none;
+        }
+
+        textarea {
+            border-right: 1px solid #ccc;
+        }
+
+        .output {
+            position: relative;
+        }
+
+        .output pre {
+            white-space: pre-wrap;
+            font-family: "Courier New", monospace;
+        }
+
+        .copy-btn, .execute-btn {
+            position: absolute;
+            right: 1rem;
+            padding: 0.5rem 1rem;
+            background-color: #4caf50;
+            color: white;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+        }
+
+        .execute-btn {
+            bottom: 3rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <textarea id="input-area" placeholder="Enter your question here"></textarea>
+        <div class="output">
+            <pre id="output-area"></pre>
+            <button id="copy-btn" class="copy-btn">Copy Code</button>
+            <button id="execute-btn" class="execute-btn">Execute</button>
+        </div>
+    </div>
+    <script>
+        async function fetchData() {
+            const inputArea = document.getElementById('input-area');
+            const response = await fetch('/process_input', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ input: inputArea.value })
+            });
+
+            if (!response.ok) {
+                console.error('Error fetching data:', response.status, response.statusText);
+                return;
+            }
+
+            const data = await response.json();
+            document.getElementById('output-area').textContent = data.output;
+        }
+
+        document.getElementById('execute-btn').addEventListener('click', fetchData);
+
+        document.getElementById('copy-btn').addEventListener('click', function () {
+            const textArea = document.createElement('textarea');
+            textArea.value = document.getElementById('output-area').textContent;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            textArea.remove();
+            alert('Code copied to clipboard');
+        });
+    </script>
+</body>
+</html>

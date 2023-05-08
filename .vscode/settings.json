@@ -1,0 +1,14 @@
+{
+    "cSpell.words": [
+        "davinci",
+        "dotenv",
+        "googleapiclient",
+        "jsonify",
+        "tiktoken",
+        "youtube"
+    ],
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.black-formatter"
+    },
+    "python.formatting.provider": "none"
+}

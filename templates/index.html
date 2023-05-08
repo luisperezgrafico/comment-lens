@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comment Analyzer</title>
+</head>
+<body>
+    <h1>YouTube Comment Analyzer</h1>
+    <form action="/analyze_comments_form" method="post">
+        <label for="video_url">Video URL:</label>
+        <input type="text" id="video_url" name="video_url" required><br><br>
+
+        <label for="max_results">Max Comments:</label>
+        <input type="number" id="max_results" name="max_results" min="1" value="100"><br><br>
+
+        <label for="model">Choose a model:</label>
+<select name="model" id="model">
+    
+    <option value="gpt-3.5-turbo">GPT-3.5 Turbo</option>
+    <option value="gpt-4">GPT-4</option>
+</select>
+
+        <input type="submit" value="Analyze">
+    </form>
+
+    <p id="progress-status">Ready</p>
+
+
+    <script src="{{ url_for('static', filename='progress.js') }}"></script>
+
+</body>
+</html>
